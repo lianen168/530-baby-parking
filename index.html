@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>530.baby - 我想你 · 爱的归途</title>
+    <style>
+        :root {
+            /* Palette: Nostalgic Purple, Warm Orange, Soft White */
+            --primary-purple: #8e44ad;
+            --warm-orange: #ff9f43;
+            --soft-bg: linear-gradient(135deg, #f3e5f5 0%, #fff3e0 100%);
+            --text-color: #2c3e50;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--soft-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Header Section --- */
+        header {
+            text-align: center;
+            padding: 4rem 1rem 2rem;
+            position: relative;
+        }
+
+        .domain-wrapper {
+            font-size: clamp(3rem, 9vw, 6.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            cursor: default;
+        }
+
+        /* Effect 1: 530 - Breathing Glow (The rhythm of missing someone) */
+        .num-part {
+            display: inline-block;
+            background: linear-gradient(to bottom, #8e44ad, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: breatheMiss 3s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(142, 68, 173, 0.2));
+        }
+
+        /* Effect 2: .baby - Playful Jump (The joy of the loved one) */
+        .tld-part {
+            display: inline-block;
+            color: var(--warm-orange);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            animation: playfulJump 2s cubic-bezier(0.280, 0.840, 0.420, 1) infinite;
+        }
+
+        @keyframes breatheMiss {
+            0%, 100% { opacity: 0.8; transform: scale(1); filter: drop-shadow(0 0 0px rgba(142, 68, 173, 0)); }
+            50% { opacity: 1; transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(142, 68, 173, 0.5)); }
+        }
+
+        @keyframes playfulJump {
+            0%, 100% { transform: translateY(0) scale(1, 1); }
+            10% { transform: translateY(-0.2rem) scale(1.1, 0.9); }
+            30% { transform: translateY(-1rem) scale(0.9, 1.1); }
+            50% { transform: translateY(0) scale(1.05, 0.95); }
+            57% { transform: translateY(-0.2rem) scale(1, 1); }
+            64% { transform: translateY(0) scale(1, 1); }
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: #57606f;
+            font-weight: 300;
+            margin-top: 15px;
+            letter-spacing: 3px;
+        }
+
+        /* --- Canvas Visualization --- */
+        #visual-wrapper {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: radial-gradient(circle at center, #ffffff 0%, #ede7f6 100%);
+            overflow: hidden;
+            margin-bottom: 3rem;
+            border-top: 1px solid rgba(142, 68, 173, 0.2);
+            border-bottom: 1px solid rgba(142, 68, 173, 0.2);
+        }
+
+        canvas {
+            display: block;
+        }
+
+        .visual-caption {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.1rem;
+            color: rgba(142, 68, 173, 0.6);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* --- 8 Fields Grid --- */
+        .content-section {
+            padding: 2rem 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary-purple);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(142, 68, 173, 0.15);
+        }
+
+        .card::top {
+            content: '';
+            height: 4px;
+            background: var(--primary-purple);
+            width: 100%;
+        }
+
+        .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            color: #2c3e50;
+            margin-bottom: 0.8rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        /* --- CTA Section --- */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 1rem;
+            background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(142,68,173,0.1) 100%);
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-purple);
+            margin-bottom: 1.5rem;
+        }
+
+        .price span {
+            font-size: 1.5rem;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .btn-buy {
+            display: inline-block;
+            background: linear-gradient(90deg, #8e44ad, #ff9f43);
+            color: white;
+            padding: 1.2rem 4rem;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(142, 68, 173, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+        }
+
+        .btn-buy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(142, 68, 173, 0.5);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #95a5a6;
+            font-size: 0.9rem;
+            background: #fff;
+        }
+
+        .email-trigger {
+            color: var(--primary-purple);
+            cursor: pointer;
+            font-weight: bold;
+            border-bottom: 1px dashed var(--primary-purple);
+        }
+
+        /* Toast Notification */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #34495e;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="domain-wrapper">
+            <span class="num-part">530</span><span class="tld-part">.baby</span>
+        </div>
+        <div class="tagline">我想你 · 此时此刻</div>
+    </header>
+
+    <!-- Canvas: Flowing "我爱上你" as requested -->
+    <div id="visual-wrapper">
+        <canvas id="missYouCanvas"></canvas>
+        <div class="visual-caption">Thinking of You, Loving You</div>
+    </div>
+
+    <section class="content-section">
+        <div class="section-header">
+            <h2>🌙 8大领域：连接思念与家 🌙</h2>
+            <p>距离无法阻挡爱的传递，用数字桥梁连接彼此的心</p>
+        </div>
+        
+        <div class="grid">
+            <!-- 1. Long Distance Relationship -->
+            <div class="card">
+                <span class="icon">🛰️</span>
+                <h3>异地恋情 (Distance Love)</h3>
+                <p>当无法见面时，530.baby 是你们的云端鹊桥。发送这个链接，告诉对方：“我想你(530)，我的宝贝(.baby)”。</p>
+            </div>
+            <!-- 2. Baby Monitor / Cam -->
+            <div class="card">
+                <span class="icon">📹</span>
+                <h3>宝宝看护 (Baby Monitor)</h3>
+                <p>适合做家庭摄像头或云相册的入口。上班想孩子了？点开 530.baby，随时看到家里的温馨。</p>
+            </div>
+            <!-- 3. Digital Love Letter -->
+            <div class="card">
+                <span class="icon">💌</span>
+                <h3>思念信箱 (Miss You Mail)</h3>
+                <p>在这个快节奏时代，慢下来的思念最珍贵。打造一个专属信箱，存放那些羞于开口的深情。</p>
+            </div>
+            <!-- 4. Family Reunion -->
+            <div class="card">
+                <span class="icon">🗓️</span>
+                <h3>团圆倒计时 (Reunion)</h3>
+                <p>为在外打拼的游子或出差的父母设计。设定一个倒计时，每一秒的跳动都是回家的脚步。</p>
+            </div>
+            <!-- 5. Voice/Audio Gift -->
+            <div class="card">
+                <span class="icon">🎙️</span>
+                <h3>晚安语音 (Goodnight Voice)</h3>
+                <p>存储睡前故事或晚安语音。当即使不在身边，也能让你的声音陪伴爱人或孩子入睡。</p>
+            </div>
+            <!-- 6. Virtual Home -->
+            <div class="card">
+                <span class="icon">🏠</span>
+                <h3>虚拟家园 (Virtual Home)</h3>
+                <p>在元宇宙中建立一个家。无论现实距离多远，我们的数字灵魂可以在 530.baby 相聚。</p>
+            </div>
+            <!-- 7. Apology Gift -->
+            <div class="card">
+                <span class="icon">🕊️</span>
+                <h3>求和礼物 (Apology)</h3>
+                <p>吵架后不知道如何开口？发送这个域名，用“我想你”代替“对不起”，温柔地化解隔阂。</p>
+            </div>
+            <!-- 8. Asset Investment -->
+            <div class="card">
+                <span class="icon">💎</span>
+                <h3>情感资产 (Asset)</h3>
+                <p>短数字域名稀缺且珍贵。投资 530.baby，不仅是投资数字资产，更是投资对家庭的永恒承诺。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="price">$100 <span>USD</span></div>
+        <p style="color: #7f8c8d; margin-bottom: 2rem;">Spaceship 官方托管 · 安全秒转</p>
+        
+        <!-- Spaceship Buy Link (Opens in New Tab) -->
+        <a href="https://www.spaceship.com/s/buy/530.baby/acv3BtXTmFZejzKg" target="_blank" class="btn-buy">
+            立即购买 · 传递思念
+        </a>
+    </section>
+
+    <footer>
+        <p>联系卖家: <span class="email-trigger" onclick="copyEmail()">joshua369x@gmail.com</span></p>
+        <p>© 2026 530.baby | 我想你 I Miss You</p>
+    </footer>
+
+    <div id="toast">邮箱已复制 (Email Copied)</div>
+
+    <script>
+        // --- Email Copy Function ---
+        function copyEmail() {
+            const email = "joshua369x@gmail.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const toast = document.getElementById("toast");
+                toast.className = "show";
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // --- Canvas Animation: Flowing "我爱上你" / "我想你" ---
+        const canvas = document.getElementById('missYouCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width, height;
+        let particles = [];
+        
+        // Symbols: 530 + "I fall in love with you" (as requested) + "Miss you"
+        const symbols = ['5', '3', '0', '我', '爱', '上', '你', '想', '❤'];
+
+        function resize() {
+            width = canvas.width = canvas.parentElement.offsetWidth;
+            height = canvas.height = canvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
+                this.x = Math.random() * width;
+                // Flow from top to bottom (like rain/thoughts dropping) or bottom up?
+                // Let's go Bottom-Up for "Thoughts Rising"
+                this.y = initial ? Math.random() * height : height + 20;
+                
+                this.speed = 0.5 + Math.random() * 1.5;
+                this.size = 12 + Math.random() * 16;
+                this.text = symbols[Math.floor(Math.random() * symbols.length)];
+                
+                // Colors: Purple, Pink, Orange
+                const rand = Math.random();
+                if (rand < 0.4) {
+                    this.color = `rgba(142, 68, 173, ${0.2 + Math.random()*0.5})`; // Purple
+                } else if (rand < 0.7) {
+                    this.color = `rgba(255, 159, 67, ${0.3 + Math.random()*0.4})`; // Orange
+                } else {
+                    this.color = `rgba(236, 204, 104, ${0.3 + Math.random()*0.4})`; // Gold
+                }
+                
+                // Drift
+                this.drift = (Math.random() - 0.5) * 0.5;
+            }
+
+            update() {
+                this.y -= this.speed;
+                this.x += this.drift;
+
+                if (this.y < -30) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.font = `${this.size}px "Microsoft YaHei", sans-serif`;
+                ctx.fillStyle = this.color;
+                ctx.fillText(this.text, this.x, this.y);
+            }
+        }
+
+        // Initialize Particles
+        for (let i = 0; i < 90; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+    </script>
+</body>
+</html>
